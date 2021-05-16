@@ -130,9 +130,6 @@ processRequestResults(error, response, body, callback) {
  *   Executes request call, then verifies response.
  *
  * @param {object} callOptions - Passed call options.
- * @param {string} callOptions.query - URL query string.
- * @param {string} callOptions.serviceNowTable - The table target of the ServiceNow table API.
- * @param {string} callOptions.method - HTTP API request method.
  * @param {iapCallback} callback - Callback a function.
  * @param {(object|string)} callback.data - The API's response. Will be an object if sunnyday path.
  *   Will be HTML text if hibernating instance.
