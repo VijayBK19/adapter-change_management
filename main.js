@@ -83,7 +83,7 @@ class ServiceNowAdapter extends EventEmitter {
     this.healthcheck();
   }
 
-  /**
+ /**
  * @memberof ServiceNowAdapter
  * @method healthcheck
  * @summary Check ServiceNow Health
@@ -114,9 +114,10 @@ healthcheck(callback) {
       * healthcheck(), execute it passing the error seen as an argument
       * for the callback's errorMessage parameter.
       */
-      this.emitStatus('OFFLINE');
-      log.error('ServiceNow: Instance is unavailable. Id is ' + this.id);
-      log.error('Log message ' + error.errorMessage);
+      this.emitOffline();
+      console.error('ServiceNow: Instance is unavailable. Id is' + this.id);
+      console.error('ServiceNow: Instance is unavailable. error' + JSON.stringify(error));
+      console.error('ServiceNow: Instance is unavailable. error message' + JSON.stringify(error.errorMessage));
    } else {
      /**
       * Write this block.
@@ -128,9 +129,9 @@ healthcheck(callback) {
       * parameter as an argument for the callback function's
       * responseData parameter.
       */
+      this.emitOnline();
+      console.debug('ServiceNow: Instance is available.');
    }
-    this.emitStatus('ONLINE');
-    log.debug('ServiceNow: Instance is available.' + this.id);
  });
 }
 
