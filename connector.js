@@ -159,8 +159,7 @@ processRequestResults(error, response, body, callback) {
   requestOptions.auth = auth;
   requestOptions.baseUrl = callOptions.url;
   requestOptions.uri = uri;
-  
-  console.log(`\nsendRequest have requestOptions Object:\n${JSON.stringify(requestOptions)}`);
+
   request(requestOptions, (error, response, body) => {
     this.processRequestResults(error, response, body, (processedResults, processedError) => callback(processedResults, processedError));
   });
