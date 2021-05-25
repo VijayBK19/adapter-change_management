@@ -202,6 +202,7 @@ healthcheck(callback) {
       jsonData = JSON.parse(data.body);  
       returnedProperties.change_ticket_number = jsonData.result[0].number;
       returnedProperties.active = jsonData.result[0].active;
+      returnedProperties.priority = jsonData.result[0].priority;
       returnedProperties.description = jsonData.result[0].description;
       returnedProperties.work_start = jsonData.result[0].work_start;
       returnedProperties.work_end = jsonData.result[0].work_end;
@@ -236,10 +237,10 @@ healthcheck(callback) {
       console.error(`\nError returned from POST request:\n${JSON.stringify(callbackError)}`);
     }
       console.log(`\nResponse returned from POST request:\n${JSON.stringify(data)}`);
-      console.log(`\nResponse returned from POST request:\n` + data.body);
       jsonData = JSON.parse(data.body);  
-       returnedProperties.change_ticket_number = jsonData.result.number;
+      returnedProperties.change_ticket_number = jsonData.result.number;
       returnedProperties.active = jsonData.result.active;
+      returnedProperties.priority = jsonData.result.priority;
       returnedProperties.description = jsonData.result.description;
       returnedProperties.work_start = jsonData.result.work_start;
       returnedProperties.work_end = jsonData.result.work_end;

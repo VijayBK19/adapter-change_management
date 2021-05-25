@@ -1,29 +1,86 @@
 {
-  "$id": "changeRequest",
-  "definitions": {
-    "changeRequest": {
-      "title": "changeTicket",
-      "type": "object",
-      "properties": {
-        "statusCode": {
-          "type": "integer",
-          "default": 200,
-          "examples": [
-            200
-          ]
-        },
-        "body": {
-          "type": "string",
-          "default": "",
-          "examples": [
-            ""
-          ]
-        }
+   "$id":"changeRequest",
+   "title":"Change Management Data Structures",
+   "description":"JSON schemas for the ServiceNow adapter's APIs' parameters and returned data.",
+   "definitions":{
+      "changeTicket":{
+         "title":"changeTicket",
+         "description":"A document describing a change management ticket.",
+         "type":"object",
+         "properties":{
+            "change_ticket_number":{
+               "type":"string",
+               "description":"The unique change ticket number.",
+               "default":"",
+               "examples":[
+                  true,
+                  false
+               ]
+            },
+            "active":{
+               "type":"boolean",
+               "description":"When true, the ticket is still active.",
+               "default":true,
+               "examples":[
+                  true,
+                  false
+               ]
+            },
+            "priority":{
+               "type":"integer",
+               "minimum":0,
+               "maximum":5,
+               "description":"The ticket's priority. A larger number has a greater priority.",
+               "default":4,
+               "examples":[
+                  4
+               ]
+            },
+            "description":{
+               "type":"string",
+               "description":"A description of the change management ticket.",
+               "default":"",
+               "examples":[
+                  ""
+               ]
+            },
+            "work_start":{
+               "type":"string",
+               "description":"The date and time when work begins on the ticket in format: YYYY-MM-DD HH:MM TZ.",
+               "pattern":"\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2} [A-Za-z]+",
+               "default":"",
+               "examples":[
+                  "2020-01-01 12:00 UTC"
+               ]
+            },
+            "work_end":{
+               "type":"string",
+               "description":"The date and time when work on the ticket completed in format: YYYY-MM-DD HH:MM TZ.",
+               "pattern":"\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2} [A-Za-z]+",
+               "default":"",
+               "examples":[
+                  "2020-01-01 15:00 UTC"
+               ]
+            },
+            "change_ticket_key":{
+               "type":"string",
+               "description":"The ticket record's key.",
+               "default":"",
+               "examples":[
+                  ""
+               ]
+            }
+         },
+         "required":[
+            "change_ticket_number",
+            "active",
+            "priority",
+            "description",
+            "work_start",
+            "work_end",
+            "change_ticket_key"
+         ],
+         "additionalProperties":false
       }
-    }
-  },
-  "required": [
-    "statusCode",
-    "body"
-  ]
+   }
 }
