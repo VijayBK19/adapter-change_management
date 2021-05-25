@@ -193,28 +193,22 @@ healthcheck(callback) {
     let callbackError = null;
     let returnedProperties = {};
     let jsonData = {};
-    let jsonDataArray = [];
     this.connector.get((data, error) => {
     if (error) {
       callbackError = error;
       console.error(`\nError returned from GET request:\n${JSON.stringify(callbackError)}`);
     }
       console.log(`\nResponse returned from GET request:\n${JSON.stringify(data)}`);
-      if (data.body ) {
-        jsonData = JSON.parse(data.body);  
-        for (let  i = 0; i < jsonData.result.length; i++) {
-            returnedProperties.change_ticket_number = jsonData.result[i].number;
-            returnedProperties.active = jsonData.result[i].active;
-            returnedProperties.priority = jsonData.result[i].priority;
-            returnedProperties.description = jsonData.result[i].description;
-            returnedProperties.work_start = jsonData.result[i].work_start;
-            returnedProperties.work_end = jsonData.result[i].work_end;
-            returnedProperties.change_ticket_key = jsonData.result[i].sys_id;
-            jsonDataArray.push(returnedProperties);
-        }
-      }
-      log.info(`\nGET Response returned jsonDataArray:\n` + JSON.stringify(jsonDataArray));
-      return callback(jsonDataArray, callbackError);
+      jsonData = JSON.parse(data.body);  
+      returnedProperties.change_ticket_number = jsonData.result[0].number;
+      returnedProperties.active = jsonData.result[0].active;
+      returnedProperties.priority = jsonData.result[0].priority;
+      returnedProperties.description = jsonData.result[0].description;
+      returnedProperties.work_start = jsonData.result[0].work_start;
+      returnedProperties.work_end = jsonData.result[0].work_end;
+      returnedProperties.change_ticket_key = jsonData.result[0].sys_id;
+      log.info(`\nGET Response returned returnedProperties:\n` + JSON.stringify(returnedProperties));
+      return callback(returnedProperties, callbackError);
     });
   }
 
@@ -243,16 +237,14 @@ healthcheck(callback) {
       console.error(`\nError returned from POST request:\n${JSON.stringify(callbackError)}`);
     }
       console.log(`\nResponse returned from POST request:\n${JSON.stringify(data)}`);
-      if (data.body) {
-        jsonData = JSON.parse(data.body);  
-        returnedProperties.change_ticket_number = jsonData.result.number;
-        returnedProperties.active = jsonData.result.active;
-        returnedProperties.priority = jsonData.result.priority;
-        returnedProperties.description = jsonData.result.description;
-        returnedProperties.work_start = jsonData.result.work_start;
-        returnedProperties.work_end = jsonData.result.work_end;
-        returnedProperties.change_ticket_key = jsonData.result.sys_id;
-      }
+      jsonData = JSON.parse(data.body);  
+      returnedProperties.change_ticket_number = jsonData.result.number;
+      returnedProperties.active = jsonData.result.active;
+      returnedProperties.priority = jsonData.result.priority;
+      returnedProperties.description = jsonData.result.description;
+      returnedProperties.work_start = jsonData.result.work_start;
+      returnedProperties.work_end = jsonData.result.work_end;
+      returnedProperties.change_ticket_key = jsonData.result.sys_id;
       log.info(`\nPOST Response returned returnedProperties:\n` + JSON.stringify(returnedProperties));
       return callback(returnedProperties, callbackError);
     });
