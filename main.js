@@ -199,7 +199,7 @@ healthcheck(callback) {
     }
       callbackData = data;
       console.log(`\nResponse returned from GET request:\n${JSON.stringify(callbackData)}`);
-       return callback(callbackData, callbackError);
+      return callback(callbackData, callbackError);
     });
   }
 
@@ -223,13 +223,13 @@ healthcheck(callback) {
     let callbackError = null;
     this.connector.post((data, error) => {
     if (error) {
-      console.error(`\nError returned from POST request:\n${JSON.stringify(error)}`);
       callbackError = error;
+      console.error(`\nError returned from POST request:\n${JSON.stringify(callbackError)}`);
     }
       callbackData = data;
-      console.log(`\nResponse returned from POST request:\n${JSON.stringify(data)}`);
+      console.log(`\nResponse returned from POST request:\n${JSON.stringify(callbackData)}`);
+      return callback(callbackData, callbackError);
     });
-    return callback(callbackData, callbackError);
   }
 }
 
