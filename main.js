@@ -112,12 +112,12 @@ healthcheck(callback) {
       * than one instance is configured.
       * If an optional IAP callback function was passed to
       * healthcheck(), execute it passing the error seen as an argument
-      * for the callback's errorMessage parameter.
+      * for the callback's errorMessage parameter. Service Now instance is hibernating
       */
       this.emitOffline();
-      log.error('ServiceNow: Instance is unavailable. Id is ' + this.id);
-      log.error('ServiceNow: Instance is unavailable. error ' + JSON.stringify(error));
-      log.error('ServiceNow: Instance is unavailable. error message ' + JSON.stringify(error.errorMessage));
+      log.error('ServiceNow: Instance is unavailable. Id is: ' + this.id);
+      log.error('ServiceNow: Instance is unavailable. error: ' + JSON.stringify(error));
+     
    } else {
      /**
       * Write this block.
@@ -194,13 +194,13 @@ healthcheck(callback) {
     let callbackError = null;
     this.connector.get((data, error) => {
     if (error) {
-      console.error(`\nError returned from GET request:\n${JSON.stringify(error)}`);
       callbackError = error;
+      console.error(`\nError returned from GET request:\n${JSON.stringify(callbackError)}`);
     }
       callbackData = data;
-      console.log(`\nResponse returned from GET request:\n${JSON.stringify(data)}`);
+      console.log(`\nResponse returned from GET request:\n${JSON.stringify(callbackData)}`);
+       return callback(callbackData, callbackError);
     });
-    return callback(callbackData, callbackError);
   }
 
   /**
