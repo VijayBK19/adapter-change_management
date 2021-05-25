@@ -174,24 +174,6 @@ healthcheck(callback) {
     this.emit(status, { id: this.id });
   }
 
- /**
-   * @memberof ServiceNowAdapter
-   * @method returnedProperties
-   * @summary Provides interface only needs properties
-   * @description From the responseData provided interface only needs properties will return as object
-   * @param {object} jsonData - Passed json obect.
-   */
-  returnedProperties(jsonData) {
-      let returnedProperties = {};
-      returnedProperties.change_ticket_number = jsonData.result[0].number;
-      returnedProperties.active = jsonData.result[0].active;
-      returnedProperties.description = jsonData.result[0].description;
-      returnedProperties.work_start = jsonData.result[0].work_start;
-      returnedProperties.work_end = jsonData.result[0].work_end;
-      returnedProperties.change_ticket_key = jsonData.result[0].sys_id;
-      return returnedProperties;
-  }
-
   /**
    * @memberof ServiceNowAdapter
    * @method getRecord
@@ -218,8 +200,13 @@ healthcheck(callback) {
     }
       console.log(`\nResponse returned from GET request:\n${JSON.stringify(data)}`);
       jsonData = JSON.parse(data.body);  
-      returnedProperties = this.returnedProperties(jsonData);
-      log.info(`\nResponse returned returnedProperties:\n` + JSON.stringify(returnedProperties));
+      returnedProperties.change_ticket_number = jsonData.result[0].number;
+      returnedProperties.active = jsonData.result[0].active;
+      returnedProperties.description = jsonData.result[0].description;
+      returnedProperties.work_start = jsonData.result[0].work_start;
+      returnedProperties.work_end = jsonData.result[0].work_end;
+      returnedProperties.change_ticket_key = jsonData.result[0].sys_id;
+      log.info(`\nGET Response returned returnedProperties:\n` + JSON.stringify(returnedProperties));
       return callback(returnedProperties, callbackError);
     });
   }
@@ -240,16 +227,25 @@ healthcheck(callback) {
      * Note how the object was instantiated in the constructor().
      * post() takes a callback function.
      */
-    let callbackData = null;
     let callbackError = null;
+    let returnedProperties = {};
+    let jsonData = {};
     this.connector.post((data, error) => {
     if (error) {
       callbackError = error;
       console.error(`\nError returned from POST request:\n${JSON.stringify(callbackError)}`);
     }
-      callbackData = data;
-      console.log(`\nResponse returned from POST request:\n${JSON.stringify(callbackData)}`);
-      return callback(callbackData, callbackError);
+      console.log(`\nResponse returned from POST request:\n${JSON.stringify(data)}`);
+      console.log(`\nResponse returned from POST request:\n` + data.body);
+      jsonData = JSON.parse(data.body);  
+       returnedProperties.change_ticket_number = jsonData.result.number;
+      returnedProperties.active = jsonData.result.active;
+      returnedProperties.description = jsonData.result.description;
+      returnedProperties.work_start = jsonData.result.work_start;
+      returnedProperties.work_end = jsonData.result.work_end;
+      returnedProperties.change_ticket_key = jsonData.result.sys_id;
+      log.info(`\nPOST Response returned returnedProperties:\n` + JSON.stringify(returnedProperties));
+      return callback(returnedProperties, callbackError);
     });
   }
 }
