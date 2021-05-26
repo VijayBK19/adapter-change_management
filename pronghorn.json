@@ -8,7 +8,28 @@
     "engineer",
     "operator"
   ],
-  "methods": [
+   "methods": [
+    {
+      "name": "postRecord",
+      "summary": "Create ServiceNow Record",
+      "description": "Creates a record in ServiceNow.",
+      "input": [],
+      "output": {
+        "name": "changeTicket",
+        "type": "object",
+        "description": "JSON schemas for the ServiceNow adapter's APIs' parameters and returned data.",
+        "schema": {
+          "title": "changeTicket",
+          "$ref": "changeRequest#/definitions/changeTicket"
+        }
+      },
+      "roles": [
+        "admin",
+        "engineer",
+        "operator"
+      ],
+      "task": true
+    }, 
     {
         "name":"getRecord",
         "summary":"Get Change Tickets",
@@ -34,29 +55,6 @@
             "operator"
         ],
         "task":true
-    }
-  ],
-   "methods": [
-    {
-      "name": "postRecord",
-      "summary": "Create ServiceNow Record",
-      "description": "Creates a record in ServiceNow.",
-      "input": [],
-      "output": {
-        "name": "changeTicket",
-        "type": "object",
-        "description": "JSON schemas for the ServiceNow adapter's APIs' parameters and returned data.",
-        "schema": {
-          "title": "changeTicket",
-          "$ref": "changeRequest#/definitions/changeTicket"
-        }
-      },
-      "roles": [
-        "admin",
-        "engineer",
-        "operator"
-      ],
-      "task": true
     }
   ]
 }
